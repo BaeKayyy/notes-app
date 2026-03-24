@@ -1,7 +1,13 @@
-import React from 'react';
-import NoteItem from './NoteItem';
+import React from "react";
+import NoteItem from "./NoteItem";
 
-function NotesList({ notes, onDelete, onArchive, keyword = '', dataTestId = 'notes-list' }) {
+function NotesList({
+  notes,
+  onDelete,
+  onArchive,
+  keyword = "",
+  dataTestId = "notes-list",
+}) {
   // TODO [Basic] validasi notes agar tidak kosong.
   const hasNotes = notes.length > 0;
 
@@ -22,9 +28,9 @@ function NotesList({ notes, onDelete, onArchive, keyword = '', dataTestId = 'not
   // TODO [Advanced] kelompokkan catatan per bulan-tahun dan render tiap grup dalam <section className="notes-group">.
   const groupedNotes = notes.reduce((acc, note) => {
     const date = new Date(note.createdAt);
-    const key = date.toLocaleDateString('id-ID', {
-      month: 'long',
-      year: 'numeric',
+    const key = date.toLocaleDateString("id-ID", {
+      month: "long",
+      year: "numeric",
     });
 
     if (!acc[key]) {

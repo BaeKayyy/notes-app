@@ -1,23 +1,18 @@
-import React from 'react';
-import { showFormattedDate } from '../utils';
-import NoteActionButton from './NoteActionButton';
+import React from "react";
+import { showFormattedDate } from "../utils";
+import NoteActionButton from "./NoteActionButton";
 
-function NoteItem({ note, onDelete, onArchive, keyword = '' }) {
-
+function NoteItem({ note, onDelete, onArchive, keyword = "" }) {
   // helper untuk highlight keyword
   function highlightText(text, keyword) {
     if (!keyword) return text;
 
-    const regex = new RegExp(`(${keyword})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+    const regex = new RegExp(`(${keyword})`, "gi");
+    return text.replace(regex, "<mark>$1</mark>");
   }
 
   return (
-    <div
-      className="note-item"
-      data-testid="note-item"
-      data-note-id={note?.id}
-    >
+    <div className="note-item" data-testid="note-item" data-note-id={note?.id}>
       <div className="note-item__content" data-testid="note-item-content">
         {/* TODO [Basic] tampilkan judul catatan menggunakan note.title */}
         {/* TODO [Advanced] sorot kata kunci pencarian dalam judul menggunakan elemen <mark>. */}
@@ -47,19 +42,13 @@ function NoteItem({ note, onDelete, onArchive, keyword = '' }) {
 
       <div className="note-item__action" data-testid="note-item-action">
         {/* TODO [Skilled] pecah tombol aksi menjadi komponen terpisah bernama `NoteActionButton` dengan menerima props `variant` dan `onClick` */}
-        <NoteActionButton
-          variant="delete"
-          onClick={() => onDelete(note.id)}
-        >
+        <NoteActionButton variant="delete" onClick={() => onDelete(note.id)}>
           Delete
         </NoteActionButton>
 
         {/* TODO [Advanced] implementasikan tombol arsip untuk fitur mengarsipkan catatan */}
-        <NoteActionButton
-          variant="archive"
-          onClick={() => onArchive(note.id)}
-        >
-          {note.archived ? 'Pindahkan' : 'Arsipkan'}
+        <NoteActionButton variant="archive" onClick={() => onArchive(note.id)}>
+          {note.archived ? "Pindahkan" : "Arsipkan"}
         </NoteActionButton>
       </div>
     </div>

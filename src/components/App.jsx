@@ -50,9 +50,7 @@ class App extends React.Component {
     // TODO [Advanced] gunakan array.map untuk toggle nilai archived catatan sesuai id dan pisahkan daftar aktif/arsip.
     this.setState((prevState) => ({
       notes: prevState.notes.map((note) =>
-        note.id === id
-          ? { ...note, archived: !note.archived }
-          : note
+        note.id === id ? { ...note, archived: !note.archived } : note,
       ),
     }));
   }
@@ -67,21 +65,17 @@ class App extends React.Component {
 
     // TODO [Skilled] filter catatan berdasarkan searchKeyword (case-insensitive).
     const filteredNotes = notes.filter((note) =>
-      note.title.toLowerCase().includes(searchKeyword.toLowerCase())
+      note.title.toLowerCase().includes(searchKeyword.toLowerCase()),
     );
 
     // TODO [Advanced] pisahkan catatan aktif dan arsip menggunakan array.filter, lalu urutkan berdasarkan tanggal terbaru.
     const activeNotes = filteredNotes
       .filter((note) => !note.archived)
-      .sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     const archivedNotes = filteredNotes
       .filter((note) => note.archived)
-      .sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return (
       <div className="note-app" data-testid="note-app">
@@ -92,7 +86,6 @@ class App extends React.Component {
 
         <div className="note-app__body" data-testid="note-app-body">
           <NoteInput addNote={this.onAddNoteHandler} />
-
 
           <section
             aria-labelledby="active-notes-title"

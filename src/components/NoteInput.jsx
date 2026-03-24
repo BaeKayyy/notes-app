@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class NoteInput extends React.Component {
   constructor(props) {
@@ -6,11 +6,11 @@ class NoteInput extends React.Component {
 
     this.state = {
       // TODO [Basic] kelola nilai title sebagai controlled input.
-      title: '',
+      title: "",
       // TODO [Basic] kelola nilai body sebagai controlled textarea.
-      body: '',
+      body: "",
       // TODO [Advanced] state untuk error message.
-      error: '',
+      error: "",
     };
 
     this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
@@ -39,7 +39,7 @@ class NoteInput extends React.Component {
     // TODO [Basic] panggil props.addNote dengan data title & body dari state, lalu reset form.
     // TODO [Advanced] tolak submit ketika body kurang dari 10 karakter dan tampilkan pesan error.
     if (this.state.body.length < 10) {
-      this.setState({ error: 'Isi catatan minimal 10 karakter' });
+      this.setState({ error: "Isi catatan minimal 10 karakter" });
       return;
     }
 
@@ -49,9 +49,9 @@ class NoteInput extends React.Component {
     });
 
     this.setState({
-      title: '',
-      body: '',
-      error: '',
+      title: "",
+      body: "",
+      error: "",
     });
   }
 
@@ -65,9 +65,7 @@ class NoteInput extends React.Component {
 
         {/* // TODO [Advanced] tampilkan pesan error menggunakan elemen dengan class note-input__feedback--error. */}
         {this.state.error && (
-          <p className="note-input__feedback--error">
-            {this.state.error}
-          </p>
+          <p className="note-input__feedback--error">{this.state.error}</p>
         )}
 
         <form
