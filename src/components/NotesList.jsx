@@ -1,9 +1,9 @@
 import React from 'react';
 import NoteItem from './NoteItem';
 
-function NotesList({ notes, onDelete, onArchive, dataTestId = 'notes-list' }) {
+function NotesList({ notes, onDelete, onArchive, keyword = '', dataTestId = 'notes-list' }) {
   // TODO [Basic] validasi notes agar tidak kosong.
-  const hasNotes = false; // update dengan nilai yang sesuai
+  const hasNotes = notes.length > 0;
 
   if (!hasNotes) {
     return (
@@ -12,16 +12,66 @@ function NotesList({ notes, onDelete, onArchive, dataTestId = 'notes-list' }) {
         <p
           className="notes-list__empty-message"
           data-testid={`${dataTestId}-empty`}
-        ></p>
+        >
+          Tidak ada catatan
+        </p>
       </div>
     );
   }
 
+  // TODO [Advanced] kelompokkan catatan per bulan-tahun dan render tiap grup dalam <section className="notes-group">.
+  const groupedNotes = notes.reduce((acc, note) => {
+    const date = new Date(note.createdAt);
+    const key = date.toLocaleDateString('id-ID', {
+      month: 'long',
+      year: 'numeric',
+    });
+
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+
+    acc[key].push(note);
+
+    return acc;
+  }, {});
+
   return (
-    <div className="notes-list" data-testid={dataTestId}>
+    <div className="notes-list notes-list--grouped" data-testid={dataTestId}>
       {/* TODO [Basic] gunakan array.map untuk merender NoteItem untuk setiap catatan. */}
       {/* TODO [Skilled] ekstrak tombol aksi menjadi komponen reusable agar dipakai NoteItem. */}
       {/* TODO [Advanced] kelompokkan catatan per bulan-tahun dan render tiap grup dalam <section className="notes-group">. */}
+
+      {Object.entries(groupedNotes).map(([groupKey, groupNotes]) => (
+        <section
+          key={groupKey}
+          className="notes-group"
+          data-testid={`${groupKey}-group`}
+        >
+          <div className="notes-group__header">
+            <h3 className="notes-group__title">{groupKey}</h3>
+
+            <span
+              className="notes-group__count"
+              data-testid={`${groupKey}-group-count`}
+            >
+              {groupNotes.length} catatan
+            </span>
+          </div>
+
+          <div className="notes-group__items">
+            {groupNotes.map((note) => (
+              <NoteItem
+                key={note.id}
+                note={note}
+                onDelete={onDelete}
+                onArchive={onArchive}
+                keyword={keyword}
+              />
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
